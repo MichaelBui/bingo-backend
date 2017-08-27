@@ -1,0 +1,12 @@
+[
+  {
+    "method": "GET",
+    "path": "/",
+    "name": "github.com/labstack/echo.(*Echo).File.func1"
+  },
+  {
+    "method": "GET",
+    "path": "/reset",
+    "name": "github.com/michaelbui/bingo-backend/controllers.(*DefaultController).Reset-fm"
+  }
+]
