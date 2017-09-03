@@ -1,25 +1,44 @@
 package main
 
 import (
-	"github.com/labstack/echo"
-	"github.com/michaelbui/bingo-backend/controllers"
 	"encoding/json"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
+	"github.com/michaelbui/bingo-backend/controllers"
 	"io/ioutil"
 )
 
-func main () {
+func main() {
 	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
-	defindRoutes(e)
+	defineRoutes(e)
 
 	logRoutesToFiles(e)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-func defindRoutes(e *echo.Echo) {
-	e.File("/", "routes.json")
-	e.GET("/reset", controllers.Default().Reset)
+func defineRoutes(e *echo.Echo) {
+
+	e.File("/routes", "routes.json")
+
+	// Normal routes
+	e.GET("/", controllers.Default().Index)
+	e.GET("/numbers", controllers.Number().List)
+	e.POST("/numbers", controllers.Number().Next)
+	e.POST("/users", controllers.User().Add)
+	e.GET("/users/:email", controllers.User().Get)
+	e.PATCH("/users/:email/numbers", controllers.User().UpdateNumbers)
+
+	// Secured routes
+	secured := e.Group("/secured")
+	secured.Use(middleware.KeyAuth(func(key string, e echo.Context) (bool, error) {
+		return key == "080917", nil
+	}))
+	secured.POST("/reset", controllers.Admin().Reset)
+	secured.POST("/activate", controllers.Admin().Activate)
 }
 
 func logRoutesToFiles(e *echo.Echo) error {

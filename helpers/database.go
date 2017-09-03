@@ -5,6 +5,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"log"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type DatabaseHelper struct {
@@ -23,7 +24,7 @@ func Database() *DatabaseHelper {
 	return database;
 }
 
-func (d *DatabaseHelper) Init() bool {
+func (d *DatabaseHelper) Init() error {
 	err := os.Remove(databasePath);
 	if err != nil {
 		log.Fatal(err);
@@ -39,8 +40,10 @@ func (d *DatabaseHelper) Init() bool {
 			email 		TEXT,
 			password	TEXT,
 			score		INTEGER,
-			number		TEXT,
-			timestamp	INTEGER
+			numbers		TEXT,
+			bingo_at	INTEGER,
+			updated_at	INTEGER,
+			created_at	INTEGER
 		);
 		DELETE FROM users;
 		CREATE TABLE numbers (
@@ -53,10 +56,10 @@ func (d *DatabaseHelper) Init() bool {
 	_, err = db.Exec(sqlQuery)
 	if err != nil {
 		log.Printf("%q: %s\n", err, sqlQuery)
-		return false
+		return err
 	}
 
-	return true
+	return nil
 }
 
 func (d *DatabaseHelper) Connect() *sql.DB {
@@ -66,4 +69,17 @@ func (d *DatabaseHelper) Connect() *sql.DB {
 	}
 
 	return db
+}
+
+func (d *DatabaseHelper) HashPassword(password string) (string, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hash), nil
+}
+
+func (d *DatabaseHelper) VerifyPassword(password string, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }

@@ -3,11 +3,16 @@ package controllers
 import (
 	"github.com/labstack/echo"
 	"net/http"
-	"github.com/michaelbui/bingo-backend/helpers"
 )
 
 type DefaultController struct {
 
+}
+
+type JsonResponse struct {
+	Code    int `json:"code"`
+	Message string `json:"message"`
+	Data    interface{} `json:"data"`
 }
 
 var (
@@ -21,7 +26,6 @@ func Default() *DefaultController {
 	return defaultController
 }
 
-func (controller *DefaultController) Reset(context echo.Context) error {
-	helpers.Database().Init();
-	return context.String(http.StatusOK, "DB Reset Has Just Been Done!");
+func (controller *DefaultController) Index(context echo.Context) error {
+	return context.JSON(http.StatusOK, JsonResponse{Code: 0, Message: "Hello World! It's working..."})
 }
