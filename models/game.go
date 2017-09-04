@@ -31,6 +31,10 @@ func (g *GameModel) Activate() error {
 }
 
 func (g *GameModel) Reset() error {
+	err := os.Remove(gameLockFile)
+	if err != nil {
+		return err
+	}
 	return helpers.Database().Init()
 }
 

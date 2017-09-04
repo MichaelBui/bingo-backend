@@ -1,23 +1,8 @@
 [
   {
-    "method": "POST",
-    "path": "/numbers",
-    "name": "github.com/michaelbui/bingo-backend/controllers.(*NumberController).Next-fm"
-  },
-  {
     "method": "GET",
     "path": "/users/:email",
     "name": "github.com/michaelbui/bingo-backend/controllers.(*UserController).Get-fm"
-  },
-  {
-    "method": "POST",
-    "path": "/secured/reset",
-    "name": "github.com/michaelbui/bingo-backend/controllers.(*AdminController).Reset-fm"
-  },
-  {
-    "method": "CONNECT",
-    "path": "/secured/*",
-    "name": "github.com/labstack/echo.(*Group).Use.func1"
   },
   {
     "method": "GET",
@@ -30,14 +15,14 @@
     "name": "github.com/labstack/echo.(*Group).Use.func1"
   },
   {
-    "method": "PATCH",
+    "method": "PUT",
     "path": "/secured/*",
     "name": "github.com/labstack/echo.(*Group).Use.func1"
   },
   {
-    "method": "PUT",
-    "path": "/secured/*",
-    "name": "github.com/labstack/echo.(*Group).Use.func1"
+    "method": "POST",
+    "path": "/secured/numbers",
+    "name": "github.com/michaelbui/bingo-backend/controllers.(*NumberController).Next-fm"
   },
   {
     "method": "GET",
@@ -45,17 +30,17 @@
     "name": "github.com/labstack/echo.(*Echo).File.func1"
   },
   {
-    "method": "GET",
-    "path": "/numbers",
-    "name": "github.com/michaelbui/bingo-backend/controllers.(*NumberController).List-fm"
-  },
-  {
-    "method": "PATCH",
-    "path": "/users/:email/numbers",
-    "name": "github.com/michaelbui/bingo-backend/controllers.(*UserController).UpdateNumbers-fm"
+    "method": "POST",
+    "path": "/users",
+    "name": "github.com/michaelbui/bingo-backend/controllers.(*UserController).Add-fm"
   },
   {
     "method": "OPTIONS",
+    "path": "/secured/*",
+    "name": "github.com/labstack/echo.(*Group).Use.func1"
+  },
+  {
+    "method": "PATCH",
     "path": "/secured/*",
     "name": "github.com/labstack/echo.(*Group).Use.func1"
   },
@@ -66,18 +51,18 @@
   },
   {
     "method": "POST",
-    "path": "/secured/activate",
-    "name": "github.com/michaelbui/bingo-backend/controllers.(*AdminController).Activate-fm"
+    "path": "/secured/reset",
+    "name": "github.com/michaelbui/bingo-backend/controllers.(*AdminController).Reset-fm"
   },
   {
     "method": "GET",
-    "path": "/",
-    "name": "github.com/michaelbui/bingo-backend/controllers.(*DefaultController).Index-fm"
+    "path": "/numbers",
+    "name": "github.com/michaelbui/bingo-backend/controllers.(*NumberController).List-fm"
   },
   {
-    "method": "POST",
-    "path": "/users",
-    "name": "github.com/michaelbui/bingo-backend/controllers.(*UserController).Add-fm"
+    "method": "CONNECT",
+    "path": "/secured/*",
+    "name": "github.com/labstack/echo.(*Group).Use.func1"
   },
   {
     "method": "DELETE",
@@ -85,8 +70,23 @@
     "name": "github.com/labstack/echo.(*Group).Use.func1"
   },
   {
+    "method": "GET",
+    "path": "/",
+    "name": "github.com/michaelbui/bingo-backend/controllers.(*DefaultController).Index-fm"
+  },
+  {
+    "method": "PATCH",
+    "path": "/users/:email/numbers",
+    "name": "github.com/michaelbui/bingo-backend/controllers.(*UserController).UpdateNumbers-fm"
+  },
+  {
     "method": "POST",
     "path": "/secured/*",
     "name": "github.com/labstack/echo.(*Group).Use.func1"
+  },
+  {
+    "method": "POST",
+    "path": "/secured/activate",
+    "name": "github.com/michaelbui/bingo-backend/controllers.(*AdminController).Activate-fm"
   }
 ]

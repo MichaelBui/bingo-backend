@@ -12,6 +12,7 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
 
 	defineRoutes(e)
 
@@ -27,7 +28,6 @@ func defineRoutes(e *echo.Echo) {
 	// Normal routes
 	e.GET("/", controllers.Default().Index)
 	e.GET("/numbers", controllers.Number().List)
-	e.POST("/numbers", controllers.Number().Next)
 	e.POST("/users", controllers.User().Add)
 	e.GET("/users/:email", controllers.User().Get)
 	e.PATCH("/users/:email/numbers", controllers.User().UpdateNumbers)
@@ -37,6 +37,7 @@ func defineRoutes(e *echo.Echo) {
 	secured.Use(middleware.KeyAuth(func(key string, e echo.Context) (bool, error) {
 		return key == "080917", nil
 	}))
+	secured.POST("/numbers", controllers.Number().Next)
 	secured.POST("/reset", controllers.Admin().Reset)
 	secured.POST("/activate", controllers.Admin().Activate)
 }

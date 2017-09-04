@@ -22,6 +22,9 @@ func Number() *NumberController {
 }
 
 func (n *NumberController) List(context echo.Context) error {
+	if !models.Game().IsLocked() {
+		return context.JSON(http.StatusBadRequest, JsonResponse{Code: 1, Message: "Game Not Started"})
+	}
 	timestamps, values := models.Number().List()
 	return context.JSON(http.StatusOK, JsonResponse{Data: map[string]interface{}{
 		"timestamps": timestamps,
